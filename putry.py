@@ -10,6 +10,10 @@ import io
 nltk.download('punkt')
 nltk.download('wordnet')
 
+# file NLTK manual
+nltk_data_path = os.path.join(os.path.dirname(__file__), "nltk_data")
+nltk.data.path.append(nltk_data_path)
+
 def get_synonyms(word):
     synonyms = set()
     for syn in wordnet.synsets(word):
