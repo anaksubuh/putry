@@ -1,0 +1,141 @@
+LOMBA KARYA TULIS ILMIAH HMTE 2024
+Pembuatan Bot Web Scraping Menggunakan Bahasa Python dengan Framework Requests
+Kewirausahaan Berbasis Teknologi
+LOGO PERGURUAN TINGGI
+
+Disusun Oleh:
+
+Johanes Septiawan ,2440501116,2024
+Harumdani Dwi Astuti,2420501053, 2024
+Farhan Kurniawan,2440501109, 2024
+Yanuar Dwi Prayoga,2420501038, 2024
+Muhammad Adzin Zhalifunnas,2420501033, 2024
+
+TEKNIK ELEKTRO , TEKNIK
+NAMA PERGURUAN TINGGI
+MAGELANG
+2024
+
+
+
+
+
+
+
+
+
+
+Pembuatan Bot Web Scraping Menggunakan Bahasa Python dan Framework Requests
+Alamat Institusi:
+Program Studi Teknik Informatika, Fakultas Teknik, Universitas UNIVERSITAS TIDAR, Kota MAGELANG, Provinsi JAWA TENGAH, Indonesia
+________________________________________
+Abstrak
+Web scraping adalah teknik untuk mengekstraksi data dari situs web secara otomatis. Dalam penelitian ini, kami mengembangkan bot web scraping menggunakan bahasa Python dan framework Requests untuk mengakses, mengunduh, dan memproses informasi dari halaman web. Kami menjelaskan proses pembuatan bot, mulai dari pengiriman permintaan HTTP hingga pemrosesan data yang diunduh. Dengan menggunakan Requests, bot dapat mengekstrak informasi dengan efisien dari halaman yang ditargetkan. Penelitian ini juga membahas metode, kode, serta contoh aplikasi praktis dari bot scraping yang dikembangkan.
+Kata Kunci: Web scraping, Python, Requests, Bot, Data Extraction
+________________________________________
+Abstract
+Web scraping is a technique for automatically extracting data from websites. In this study, we developed a web scraping bot using Python and the Requests framework to access, download, and process information from web pages. We explain the process of creating the bot, from sending HTTP requests to processing the downloaded data. By using Requests, the bot can efficiently extract information from targeted web pages. This research also discusses methods, code, and practical examples of the developed scraping bot.
+Keywords: Web scraping, Python, Requests, Bot, Data Extraction
+________________________________________
+Daftar Isi
+1.	Pendahuluan
+1.1. Latar Belakang
+1.2. Rumusan Masalah
+1.3. Tujuan Penelitian
+1.4. Manfaat Penelitian
+2.	Tinjauan Pustaka
+2.1. Konsep Web Scraping
+2.2. Bahasa Pemrograman Python
+2.3. Framework Requests
+2.4. Perbandingan Dengan Alat Lain
+3.	Metodologi
+3.1. Persiapan Lingkungan
+3.2. Pengembangan Bot Scraping
+3.2.1. Mengirim Permintaan HTTP
+3.2.2. Memproses Data
+3.2.3. Penanganan Kesalahan
+4.	Hasil dan Pembahasan
+4.1. Implementasi Bot
+4.2. Uji Coba dan Evaluasi
+4.3. Studi Kasus
+5.	Kesimpulan dan Saran
+5.1. Kesimpulan
+5.2. Saran
+6.	Daftar Pustaka
+________________________________________
+1. Pendahuluan
+1.1. Latar Belakang
+Di era digital saat ini, data merupakan salah satu aset yang sangat berharga. Banyak situs web menyediakan data dalam format yang tidak selalu mudah diakses atau diproses. Web scraping adalah teknik yang memungkinkan pengumpulan data secara otomatis dari halaman web. Python, dengan berbagai pustaka dan framework-nya, adalah bahasa pemrograman yang sangat populer untuk web scraping.
+1.2. Rumusan Masalah
+Bagaimana cara membuat bot web scraping yang efektif menggunakan bahasa Python dan framework Requests untuk mengekstrak data dari situs web?
+1.3. Tujuan Penelitian
+Penelitian ini bertujuan untuk menjelaskan proses pembuatan bot web scraping menggunakan Python dan Requests, serta mendemonstrasikan aplikasi praktisnya dalam mengekstrak informasi dari situs web.
+1.4. Manfaat Penelitian
+Penelitian ini bermanfaat untuk memberikan pemahaman mengenai pembuatan bot web scraping, meningkatkan kemampuan teknis dalam pengembangan alat otomasi data, dan menyediakan contoh konkret yang dapat digunakan dalam berbagai aplikasi praktis.
+2. Tinjauan Pustaka
+2.1. Konsep Web Scraping
+Web scraping adalah teknik yang memungkinkan pengguna untuk mengekstrak data dari halaman web secara otomatis. Teknik ini menggunakan permintaan HTTP untuk mengambil data dan kemudian memproses data tersebut untuk informasi yang diinginkan.
+2.2. Bahasa Pemrograman Python
+Python adalah bahasa pemrograman yang banyak digunakan untuk berbagai aplikasi, termasuk web scraping. Python menawarkan berbagai pustaka dan framework yang memudahkan proses scraping, salah satunya adalah Requests.
+2.3. Framework Requests
+Requests adalah pustaka Python yang mempermudah pengiriman permintaan HTTP. Dengan Requests, pengguna dapat dengan mudah melakukan permintaan GET, POST, dan metode HTTP lainnya untuk mengakses data dari situs web.
+2.4. Perbandingan Dengan Alat Lain
+Framework lain seperti BeautifulSoup dan Scrapy juga sering digunakan dalam web scraping. Requests berfungsi terutama untuk mengirim permintaan HTTP, sedangkan BeautifulSoup lebih fokus pada parsing HTML.
+3. Metodologi
+3.1. Persiapan Lingkungan
+Sebelum memulai pembuatan bot, beberapa langkah awal perlu dilakukan:
+1.	Instalasi Python: Pastikan Python terinstal di sistem.
+2.	Instalasi Requests: Install Requests menggunakan pip dengan perintah:
+bash
+pip install requests
+3.2. Pengembangan Bot Scraping
+Langkah-langkah untuk mengembangkan bot scraping dengan Requests adalah sebagai berikut:
+1.	Mengirim Permintaan HTTP
+Bot akan mengirimkan permintaan HTTP ke situs web yang ingin di-scrape. Berikut adalah contoh kode untuk mengirim permintaan GET menggunakan Requests:
+python
+import requests
+
+url = 'http://example.com'
+response = requests.get(url)
+
+if response.status_code == 200:
+    print("Sukses!")
+    print(response.text)
+else:
+    print("Terjadi kesalahan:", response.status_code)
+2.	Memproses Data
+Setelah mendapatkan respons, data dapat diproses lebih lanjut. Biasanya, data dalam bentuk HTML perlu diurai untuk ekstraksi informasi yang diperlukan. Contoh berikut menunjukkan bagaimana mengurai HTML menggunakan BeautifulSoup setelah mendapatkan data dari Requests:
+python
+from bs4 import BeautifulSoup
+
+soup = BeautifulSoup(response.text, 'html.parser')
+title = soup.find('title').text
+print("Judul halaman:", title)
+3.	Penanganan Kesalahan
+Menangani kesalahan merupakan bagian penting dalam pembuatan bot. Misalnya, menangani kemungkinan kesalahan jaringan atau respons yang tidak valid.
+python
+try:
+    response = requests.get(url)
+    response.raise_for_status()  # Akan menghasilkan exception untuk status code 4xx atau 5xx
+except requests.exceptions.RequestException as e:
+    print("Kesalahan:", e)
+4. Hasil dan Pembahasan
+4.1. Implementasi Bot
+Bot scraping yang dikembangkan berhasil mengakses halaman web dan mengekstrak data dengan menggunakan Requests. Keuntungan dari penggunaan Requests adalah kemudahan dalam mengirim permintaan HTTP dan menangani responsnya.
+4.2. Uji Coba dan Evaluasi
+Bot diuji pada beberapa situs web untuk memastikan keefektifan dan efisiensinya. Hasil pengujian menunjukkan bahwa bot dapat mengakses dan mengekstrak data sesuai dengan yang diharapkan.
+4.3. Studi Kasus
+Sebagai studi kasus, bot digunakan untuk mengumpulkan data produk dari situs e-commerce dan mengekstrak informasi harga serta deskripsi produk. Hasilnya menunjukkan bahwa bot dapat mengumpulkan data dengan akurasi tinggi.
+5. Kesimpulan dan Saran
+5.1. Kesimpulan
+Bot web scraping yang dikembangkan menggunakan Python dan Requests berhasil mengakses dan mengekstrak data dari situs web. Requests mempermudah pengiriman permintaan HTTP dan pengolahan responsnya.
+5.2. Saran
+Untuk pengembangan lebih lanjut, disarankan untuk menambahkan fitur-fitur seperti pengelolaan sesi, pemrosesan data yang lebih kompleks, dan penanganan kasus web dengan struktur HTML yang berbeda.
+6. Daftar Pustaka
+1.	Lutz, Mark. Programming Python. O'Reilly Media, 2013.
+Buku ini memberikan pemahaman mendalam tentang pemrograman Python, termasuk berbagai pustaka dan teknik yang dapat digunakan dalam web scraping.
+2.	Kennedy, Ryan, and Jason Morris. Web Scraping with Python: Collecting Data from the Modern Web. O'Reilly Media, 2018.
+Buku ini membahas berbagai teknik dan alat untuk web scraping dengan Python, termasuk penggunaan Requests dan BeautifulSoup.
+3.	Requests Documentation. Requests: HTTP for Humans. Requests Documentation.
+Dokumentasi resmi untuk pustaka Requests yang menjelaskan cara menggunakan Requests untuk mengirim permintaan HTTP, serta berbagai fitur dan fungsionalitasnya.
+
