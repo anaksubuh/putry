@@ -5,15 +5,11 @@ from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize, sent_tokenize
 import random
 import io
-import os
+from googletrans import Translator
 
 # Pastikan resource NLTK telah diunduh
 nltk.download('punkt')
 nltk.download('wordnet')
-
-# file NLTK manual
-nltk_data_path = os.path.join(os.path.dirname(__file__), "nltk_data")
-nltk.data.path.append(nltk_data_path)
 
 def get_synonyms(word):
     synonyms = set()
@@ -72,32 +68,97 @@ st.title('<3 Putry Paraphrasing Tool <3')
 
 option = st.selectbox('Choose input method:', ('Copy-Paste Text', 'Upload File'))
 
-if option == 'Copy-Paste Text':
-    input_text = st.text_area('Enter text to paraphrase:', height=300)
-else:
-    uploaded_file = st.file_uploader('Upload a file:', type=['txt', 'docx'])
-    if uploaded_file:
-        if uploaded_file.type == 'text/plain':
-            input_text = uploaded_file.read().decode('utf-8')
-        elif uploaded_file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-            input_text = read_text_from_word(uploaded_file)
-        st.text_area('File content:', input_text, height=300, disabled=True)
+def translate_text(text, source_lang="auto", target_lang="en"):
+    """Function to translate text using Google Translate"""
+    translator = Translator()
+    translation = translator.translate(text, src=source_lang, dest=target_lang)
+    return translation.text
 
-if st.button('Paraphrase Text'):
-    if input_text:
-        paraphrased_text = paraphrase_text(input_text)
-        st.text_area('Paraphrased text:', paraphrased_text, height=300)
-        
-        buffer = create_word_document(paraphrased_text)
-        st.download_button(
-            label='Download Paraphrased Document',
-            data=buffer,
-            file_name='sukses_analyzer.docx',
-            mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        )
-        st.success('Paraphrased text is ready to download.')
+def read_text_from_word(uploaded_file):
+    """Function to read text from a Word document"""
+    from docx import Document
+    doc = Document(uploaded_file)
+    text = ""
+    for para in doc.paragraphs:
+        text += para.text + "\n"
+    return text
+
+if option == 'Translator':
+    option = st.selectbox('Choose input method:', ('Copy-Paste Text', 'Upload File'))
+
+    if option == 'Copy-Paste Text':
+        input_text = st.text_area('Enter text to translate:', height=300)
     else:
-        st.error('Please enter or upload text to paraphrase.')
+        uploaded_file = st.file_uploader('Upload a file:', type=['txt', 'docx'])
+        if uploaded_file:
+            if uploaded_file.type == 'text/plain':
+                input_text = uploaded_file.read().decode('utf-8')
+            elif uploaded_file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                input_text = read_text_from_word(uploaded_file)
+            st.text_area('File content:', input_text, height=300, disabled=True)
 
-st.warning('ROBOT INI TIDAK 100% AKURAT , MOHON DI CHEK MANUAL UNTUK HASILNYA', icon="⚠️")
-st.info('Robot by casper', icon="ℹ️")
+    target_lang = st.selectbox('Choose target language:', ('en', 'id', 'es', 'fr', 'de', 'it'))
+
+    if st.button('Translate Text'):
+        if input_text:
+            translated_text = translate_text(input_text, source_lang="auto", target_lang=target_lang)
+            st.text_area('Translated text:', translated_text, height=300)
+
+            # For downloading the translated text as a Word document
+            from io import BytesIO
+            from docx import Document
+
+            def create_word_document(translated_text):
+                doc = Document()
+                doc.add_paragraph(translated_text)
+                buffer = BytesIO()
+                doc.save(buffer)
+                buffer.seek(0)
+                return buffer
+
+            buffer = create_word_document(translated_text)
+            st.download_button(
+                label='Download Translated Document',
+                data=buffer,
+                file_name='translated_document.docx',
+                mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            )
+            st.success('Translated text is ready to download.')
+        else:
+            st.error('Please enter or upload text to translate.')
+
+    st.warning('This translation is not 100% accurate, please verify manually.', icon="⚠️")
+    st.info('Translation tool by Casper', icon="ℹ️")
+
+elif option == 'Parafrase':
+    option = st.selectbox('Choose input method:', ('Copy-Paste Text', 'Upload File'))
+
+    if option == 'Copy-Paste Text':
+        input_text = st.text_area('Enter text to paraphrase:', height=300)
+    else:
+        uploaded_file = st.file_uploader('Upload a file:', type=['txt', 'docx'])
+        if uploaded_file:
+            if uploaded_file.type == 'text/plain':
+                input_text = uploaded_file.read().decode('utf-8')
+            elif uploaded_file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                input_text = read_text_from_word(uploaded_file)
+            st.text_area('File content:', input_text, height=300, disabled=True)
+
+    if st.button('Paraphrase Text'):
+        if input_text:
+            paraphrased_text = paraphrase_text(input_text)
+            st.text_area('Paraphrased text:', paraphrased_text, height=300)
+            
+            buffer = create_word_document(paraphrased_text)
+            st.download_button(
+                label='Download Paraphrased Document',
+                data=buffer,
+                file_name='sukses_analyzer.docx',
+                mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            )
+            st.success('Paraphrased text is ready to download.')
+        else:
+            st.error('Please enter or upload text to paraphrase.')
+
+    st.warning('ROBOT INI TIDAK 100% AKURAT , MOHON DI CHEK MANUAL UNTUK HASILNYA', icon="⚠️")
+    st.info('Robot by casper', icon="ℹ️")
