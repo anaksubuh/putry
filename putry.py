@@ -66,7 +66,7 @@ st.set_page_config(
 
 st.title('<3 Putry Paraphrasing Tool <3')
 
-option = st.selectbox('Choose input method:', ('Translator', 'Parafrase'))
+option = st.selectbox('Choose input method:', ('Translator', 'Parafrase','Resep CHEAT'))
 
 def translate_text(text, source_lang="auto", target_lang="en"):
     """Function to translate text using Google Translate"""
@@ -162,3 +162,31 @@ elif option == 'Parafrase':
 
     st.warning('ROBOT INI TIDAK 100% AKURAT , MOHON DI CHEK MANUAL UNTUK HASILNYA', icon="⚠️")
     st.info('Robot by casper', icon="ℹ️")
+
+elif option == 'Resep CHEAT':
+    # Password yang sudah Anda tentukan
+    password_sukses = "amitheacantik"  # Ganti dengan password yang Anda inginkan
+    kalimat_rahasia = '''
+
+https://quillbot.com
+https://violentmonkey.github.io/get-it/
+https://greasyfork.org/en/scripts/465276-quillbot-premium-unlocker
+
+'''
+
+    # Mengambil input password dari pengguna
+    input_password = st.text_input("Masukkan Password:", type="password")
+
+    # Memeriksa apakah password yang dimasukkan benar
+    if input_password == password_sukses:
+        st.success("Password benar!")
+        st.write('RESEP 1')
+        st.markdown('https://greasyfork.org/en/scripts/465276-quillbot-premium-unlocker')
+        st.write('RESEP 2')
+        st.markdown('https://violentmonkey.github.io/get-it')
+        st.write('RESEP 3')
+        st.markdown('https://greasyfork.org/en/scripts/465276-quillbot-premium-unlocker')
+        st.write('SELAMAT JANJUCKER KAMU MENDAPATKAN HADIAH YANG INDAHH')
+    else:
+        if input_password:
+            st.error("Password salah. Coba lagi.")
