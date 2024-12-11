@@ -66,7 +66,7 @@ st.set_page_config(
 
 st.title('<3 Putry Paraphrasing Tool <3')
 
-option = st.selectbox('Choose input method:', ('Copy-Paste Text', 'Upload File'))
+option = st.selectbox('Choose input method:', ('Translator', 'Parafrase'))
 
 def translate_text(text, source_lang="auto", target_lang="en"):
     """Function to translate text using Google Translate"""
