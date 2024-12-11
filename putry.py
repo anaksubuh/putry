@@ -5,6 +5,7 @@ from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize, sent_tokenize
 import random
 import io
+import os
 
 # Pastikan resource NLTK telah diunduh
 nltk.download('punkt')
